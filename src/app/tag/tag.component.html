@@ -1,0 +1,43 @@
+
+  <div class="container">      
+      <form [formGroup]="angForm" novalidate> 
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">       
+                            <label class="control-labe">Type Tags here Using comma,semicomma and line brack as delimiters</label>
+                          <textarea  type="text" class="form-control col-md-6" formControlName="tag_name" #tag_name></textarea>
+                          <input type="hidden" formControlName="id" #id/>
+                        </div>
+                        <div *ngIf="angForm.controls['tag_name'].invalid && (angForm.controls['tag_name'].dirty || angForm.controls['tag_name'].touched)" class="alert alert-danger">
+                          <div *ngIf="angForm.controls['tag_name'].errors.required">
+                            Tag is required.
+                          </div>
+                        </div>  
+                    </div>
+            </div>         
+            <div class="row">
+                 <div class="col-xs-5">
+                    <button type="submit" 
+                    (click)="addTag(tag_name.value,id.value)"
+                    [disabled]="angForm.pristine || angForm.invalid" 
+                    class="btn btn-primary">Add Tag</button><br>
+                    </div>
+            </div>
+        </form>
+</div><br>
+<div class="col-md-6">
+    <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-body">
+              <ul>
+                  <li *ngFor="let tag of tags"  (click)="selectTagForEdit(tag)">
+                    <div class="btn btn-primary" [ngClass]="(tag.tag_name > 0)?'btn-danger':'btn-primary'">
+                    {{tag.tag_name}}          
+                    <a (click)="deleteTag(tag.id)">X</a>
+                  </div>  
+                 </li>
+                </ul>
+          </div>
+        </div>        
+      </div>   
+  </div>
